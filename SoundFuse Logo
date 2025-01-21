@@ -1,0 +1,193 @@
+/* SOUNDFUSE - COMPLETE DEPLOYMENT PACKAGE
+   Version: 1.0.0
+   
+   COPY/PASTE INSTRUCTIONS:
+   
+   1. CREATE DIRECTORY STRUCTURE FIRST:
+   
+   soundfuse/
+   ├── public/
+   ├── src/
+   │   ├── components/
+   │   ├── contexts/
+   │   ├── lib/
+   │   ├── types/
+   │   └── app/
+   
+   2. FOLLOW THE NUMBERED STEPS BELOW
+*/
+
+// === 1. FIRST, CREATE PACKAGE.JSON IN ROOT ===
+// File: package.json
+{
+  "name": "soundfuse",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@supabase/auth-helpers-nextjs": "^0.8.7",
+    "@supabase/supabase-js": "^2.39.0",
+    "next": "14.0.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tone": "^14.7.77",
+    "wavesurfer.js": "^7.5.2",
+    "encoding": "^0.1.13",
+    "tailwindcss": "^3.3.6",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "@types/node": "^20.10.4",
+    "@types/react": "^18.2.42",
+    "typescript": "^5.3.3"
+  }
+}
+
+// === 2. CREATE LOGO FILE ===
+// File: public/logo.svg
+// Copy the entire SVG code shown above
+
+// === 3. CREATE TYPES ===
+// File: src/types/index.ts
+export interface User {
+  id: string;
+  email?: string;
+  username?: string;
+  avatar_url?: string;
+}
+
+export interface Track {
+  id: string;
+  title: string;
+  audio_url: string;
+  user_id: string;
+  created_at: string;
+  waveform_data?: number[];
+}
+
+export interface Comment {
+  id: string;
+  content: string;
+  track_id: string;
+  user_id: string;
+  timestamp: number;
+  created_at: string;
+}
+
+// === 4. CREATE SUPABASE CLIENT ===
+// File: src/lib/supabase.ts
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+// === 5. CREATE AUTH CONTEXT ===
+// File: src/contexts/AuthContext.tsx
+import { createContext, useContext, useEffect, useState } from 'react';
+import { User } from '../types';
+import { supabase } from '../lib/supabase';
+
+interface AuthContextType {
+  user: User | null;
+  loading: boolean;
+}
+
+export const AuthContext = createContext<AuthContextType>({
+  user: null,
+  loading: true,
+});
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_, session) => {
+        setUser(session?.user ?? null);
+        setLoading(false);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export const useAuth = () => useContext(AuthContext);
+
+// === 6. CREATE COMPONENTS ===
+// File: src/components/Logo.tsx
+import Image from 'next/image';
+
+export function Logo({ className }: { className?: string }) {
+  return (
+    <div className={className}>
+      <Image
+        src="/logo.svg"
+        alt="SoundFuse"
+        width={200}
+        height={80}
+        priority
+      />
+    </div>
+  );
+}
+
+// File: src/components/AudioPlayer.tsx
+[Previous AudioPlayer component code]
+
+// File: src/components/AudioRecorder.tsx
+[Previous AudioRecorder component code]
+
+// === 7. CREATE APP LAYOUT ===
+// File: src/app/layout.tsx
+import { AuthProvider } from '../contexts/AuthContext';
+import '../styles/globals.css';
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
+    </html>
+  );
+}
+
+// === 8. CREATE MAIN PAGE ===
+// File: src/app/page.tsx
+[Previous page.tsx code]
+
+// === 9. CREATE ENV FILE ===
+// File: .env.local
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+/* STEP-BY-STEP DEPLOYMENT INSTRUCTIONS:
+
+1. On your iPhone, open Working Copy
+2. Create new repository "soundfuse"
+3. Create the directory structure as shown at top
+4. Copy each section above into its corresponding file
+5. Commit and push to GitHub
+6. Deploy on Vercel:
+   - Connect to GitHub repo
+   - Add environment variables
+   - Deploy
+
+

@@ -88,7 +88,4 @@ module.exports = {
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
-}
-
-[Additional code sections would follow, but I'll create a separate artifact for the step-by-step instructions first. Would you like me to continue with the complete codebase?]
+  "exclude": ["node_modules"
