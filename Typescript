@@ -1,0 +1,100 @@
+// src/types/audio.ts
+export interface AudioTrack {
+  id: string;
+  url: string;
+  name: string;
+  duration: number;
+  waveform?: number[];
+  createdAt: string;
+  userId: string;
+}
+
+export interface UserProfile {
+  id: string;
+  email: string;
+  name: string;
+  avatar?: string;
+  preferences: {
+    theme: 'light' | 'dark';
+    audioQuality: 'low' | 'medium' | 'high';
+  };
+}
+
+export interface AudioProcessingOptions {
+  gain: number;
+  pitch: number;
+  tempo: number;
+  effects: {
+    reverb: boolean;
+    delay: boolean;
+    distortion: boolean;
+  };
+}
+
+// src/types/supabase.ts
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
+export interface Database {
+  public: {
+    Tables: {
+      audio_tracks: {
+        Row: {
+          id: string
+          created_at: string
+          url: string
+          name: string
+          duration: number
+          user_id: string
+          waveform: number[] | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          url: string
+          name: string
+          duration: number
+          user_id: string
+          waveform?: number[] | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          url?: string
+          name?: string
+          duration?: number
+          user_id?: string
+          waveform?: number[] | null
+        }
+      }
+      user_profiles: {
+        Row: {
+          id: string
+          email: string
+          name: string
+          avatar: string | null
+          preferences: Json
+        }
+        Insert: {
+          id: string
+          email: string
+          name: string
+          avatar?: string | null
+          preferences?: Json
+        }
+        Update: {
+          id?: string
+          email?: string
+          name?: string
+          avatar?: string | null
+          preferences?: Json
+        }
+      }
+    }
+  }
+}
