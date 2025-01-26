@@ -4,8 +4,6 @@ SoundFuse is a music app for live musicians and studio recording artists. It off
 - Tools for creating and mastering audio/visual files.
 - A platform for unknown musicians to be discovered and hired by well-known artists.
 - AI suggestions for song writing and performance improvements.
-
-## Features
 - Virtual studio setup
 - Beat matching & loop creation
 - Collaboration hub

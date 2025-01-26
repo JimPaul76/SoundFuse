@@ -1,10 +1,4 @@
-# SOUNDFUSE - COMPLETE PRODUCTION CODE
-Version: 2.0.0
-
-## COPY/PASTE INSTRUCTIONS
-
-1. Create these folders on your development environment:
-```
+,,,
 soundfuse/
 ├── public/
 ├── src/
@@ -15,10 +9,6 @@ soundfuse/
 │   ├── styles/
 │   └── app/
 ```
-
-2. Copy each section below in the exact order shown:
-
-=== START COPYING BELOW THIS LINE ===
 
 // === 1. PACKAGE.JSON ===
 {
