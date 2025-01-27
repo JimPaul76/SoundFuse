@@ -1,16 +1,3 @@
-,,,
-soundfuse/
-├── public/
-├── src/
-│   ├── components/
-│   ├── contexts/
-│   ├── lib/
-│   ├── types/
-│   ├── styles/
-│   └── app/
-```
-
-// === 1. PACKAGE.JSON ===
 {
   "name": "soundfuse",
   "version": "2.0.0",
@@ -41,41 +28,3 @@ soundfuse/
     "framer-motion": "^10.16.4"
   }
 }
-
-// === 2. NEXT CONFIG ===
-// File: next.config.js
-module.exports = {
-  reactStrictMode: true,
-  webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-    };
-    return config;
-  },
-}
-
-// === 3. TYPESCRIPT CONFIG ===
-// File: tsconfig.json
-{
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"
