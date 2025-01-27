@@ -191,4 +191,4 @@ const CollaborationPanel = ({ collaborators }) => {
   );
 };
 
-export default AudioWorkspace;
+export default AudioWorkspace; 
