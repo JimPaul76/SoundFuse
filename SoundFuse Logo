@@ -1,23 +1,6 @@
 /* SOUNDFUSE - COMPLETE DEPLOYMENT PACKAGE
    Version: 1.0.0
-   
-   COPY/PASTE INSTRUCTIONS:
-   
-   1. CREATE DIRECTORY STRUCTURE FIRST:
-   
-   soundfuse/
-   ├── public/
-   ├── src/
-   │   ├── components/
-   │   ├── contexts/
-   │   ├── lib/
-   │   ├── types/
-   │   └── app/
-   
-   2. FOLLOW THE NUMBERED STEPS BELOW
 */
-
-// === 1. FIRST, CREATE PACKAGE.JSON IN ROOT ===
 // File: package.json
 {
   "name": "soundfuse",
